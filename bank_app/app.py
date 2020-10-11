@@ -23,4 +23,4 @@ def prediction_from_file():
     pred = model.predict(df)
     return 'The predicted values are '+ str(pred)
 if __name__ == '__main__':
-    app.run(host = '0.0.0.0', port = 8080)
+    app.run()
