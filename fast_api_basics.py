@@ -9,10 +9,18 @@ from fastapi import FastAPI
 import uvicorn
 from typing import Optional
 from pydantic import BaseModel
+
+class GetDataIn(BaseModel):
+    Emp_Pass: int
+    Name: str
+    Age: float
+    Designation: Optional[str] = None
+    
 class GetData(BaseModel):
     Name: str
     Age: float
     Designation: Optional[str] = None
+    
 app = FastAPI()
 # get request to fetch data from server
 @app.get('/')
@@ -43,6 +51,12 @@ async def details3(getData: GetData):
 @app.post('/details4/{emp_id}')
 async def details4(getData:GetData, emp_id:int, active:bool):
     return {'Employee Code':emp_id, 'Details':f'{getData}', 'Status':active}
+
+# reponse model is when we want to limit what the user can see for example like password 
+@app.post('/details5/', response_model = GetData, response_model_exclude = {'Designation'}) # we can also use include which will include that field only
+# response_model is what the user will be able to see but we are taking in data from GetDataIn
+async def details5(getData: GetDataIn):
+    return getData
 
 if __name__ == '__main__':
     uvicorn.run(app, port=5000, host='localhost')
