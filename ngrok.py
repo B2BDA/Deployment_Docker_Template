@@ -4,7 +4,7 @@ from pyngrok import ngrok
 ngrok.kill()
 
 # open HTTP tunnel on default port 80
-public_url = ngrok.connect(8501)
+public_url = ngrok.connect(8088)
 
 # Open ssh tunnel
 # ssh_url = ngrok.connect(22, "tcp")
